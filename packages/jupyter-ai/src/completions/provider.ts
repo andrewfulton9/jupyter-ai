@@ -80,14 +80,17 @@ export class JaiInlineProvider
     let cellId = undefined;
     let path = context.session?.path;
     if (context.widget instanceof NotebookPanel) {
-      const activeCell = context.widget.content.activeCell;
+      const notebookPanel = context.widget as NotebookPanel;
+      const activeCell = notebookPanel.content.activeCell;
       if (activeCell) {
         cellId = activeCell.model.id;
       }
-    }
+    }  
     if (!path && context.widget instanceof DocumentWidget) {
-      path = context.widget.context.path;
+      const documentWidget = context.widget as DocumentWidget;
+      path = documentWidget.context.path;
     }
+    
     const number = ++this._counter;
 
     const streamPreference = this._settings.streaming;
@@ -112,6 +115,11 @@ export class JaiInlineProvider
       stream,
       cell_id: cellId
     });
+    console.log(result)
+    /* return {items: [{insertText: "this is text", error: {message: "This is an error."}}]} */
+
+    console.log(result)
+    console.log(result.list)
 
     const error = result.error;
     if (error) {
