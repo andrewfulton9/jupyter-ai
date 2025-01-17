@@ -136,12 +136,13 @@ class BaseInlineCompletionHandler(
             title=e.args[0] if e.args else "Exception",
             traceback=traceback.format_exc(),
         )
-        self.reply(
-            InlineCompletionReply(
-                list=InlineCompletionList(items=[{"error": title}]),
+        response = InlineCompletionReply(
+                list=InlineCompletionList(items=[{"insertText": "", "error": title}]),
                 error=error,
                 reply_to=request.number,
             )
+        self.reply(
+            response
         )
 
     async def _handle_request(self, request: InlineCompletionRequest):

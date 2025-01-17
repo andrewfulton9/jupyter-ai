@@ -19,6 +19,6 @@ class DefaultInlineCompletionHandler(BaseInlineCompletionHandler):
         llm = self.get_llm()
         if not llm:
             raise ValueError("Please select a model for inline completion.")
-
+        raise ValueError("this is an error")
         async for reply in llm.stream_inline_completions(request):
             self.reply(reply)

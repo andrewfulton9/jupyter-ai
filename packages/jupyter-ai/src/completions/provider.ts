@@ -40,7 +40,7 @@ export class JaiInlineProvider
   implements IInlineCompletionProvider, IJaiCompletionProvider
 {
   readonly identifier = JaiInlineProvider.ID;
-  readonly icon = jupyternautIcon.bindprops({ width: 16, top: 1 });
+  readonly icon: import('@jupyterlab/ui-components').LabIcon = jupyternautIcon.bindprops({ width: 16, top: 1 });
 
   constructor(protected options: JaiInlineProvider.IOptions) {
     options.completionHandler.streamed.connect(this._receiveStreamChunk, this);
@@ -105,7 +105,7 @@ export class JaiInlineProvider
       // Reset stream promises handler
       this._streamPromises.clear();
     }
-    const result = await this.options.completionHandler.sendMessage({
+    let result = await this.options.completionHandler.sendMessage({
       path: context.session?.path,
       mime,
       prefix: this._prefixFromRequest(request),
@@ -136,9 +136,9 @@ export class JaiInlineProvider
           }
         ]
       });
-      throw new Error(
+      /* throw new Error(
         `Inline completion failed: ${error.type}\n${error.traceback}`
-      );
+      ); */
     }
     return result.list;
   }

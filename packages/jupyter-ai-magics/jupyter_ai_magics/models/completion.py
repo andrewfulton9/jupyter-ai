@@ -39,6 +39,7 @@ class InlineCompletionItem(BaseModel):
     filterText: Optional[str]
     isIncomplete: Optional[bool]
     token: Optional[str]
+    error: Optional[str]
 
 
 class CompletionError(BaseModel):
